@@ -7,8 +7,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import MotionAnimation from "@/components/MotionAnimation";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
+  const router = useRouter();
   const handleFormData = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
@@ -20,6 +22,7 @@ const LoginPage = () => {
       .then((res) => {
         if (res?.data) {
           localStorage.setItem("access_token", res.data.access_token);
+          router.push("/");
         }
       })
       .catch((error) => {

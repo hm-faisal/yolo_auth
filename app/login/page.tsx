@@ -18,7 +18,7 @@ const LoginPage = () => {
     const data = Object.fromEntries(formData.entries());
 
     axios
-      .post("http://localhost:3000/auth/login", data)
+      .post("https://auth-nest-kmoz.onrender.com/auth/login", data)
       .then((res) => {
         if (res?.data) {
           localStorage.setItem("access_token", res.data.access_token);

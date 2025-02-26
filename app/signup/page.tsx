@@ -19,22 +19,23 @@ import { useRouter } from "next/navigation";
 
 const SignUpPage = () => {
   const router = useRouter();
-  const handleFormData = async (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleFormData = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
-    try {
-      const res = await axios.post("http://localhost:3000/auth/signup", data);
-
-      if (res?.data) {
-        localStorage.setItem("access_token", res.data.access_token);
-        router.push("/"); // Redirect after login
-      }
-    } catch (err) {
-      console.error("Login failed:", err);
-    }
+    axios
+      .post("https://auth-nest-kmoz.onrender.com/auth/signup", data)
+      .then((res) => {
+        if (res?.data) {
+          localStorage.setItem("access_token", res.data.access_token);
+          router.push("/"); // Redirect after login
+        }
+      })
+      .catch((e) => {
+        console.log("Login failed:", e);
+      });
   };
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-500 p-4">

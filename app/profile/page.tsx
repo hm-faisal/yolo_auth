@@ -3,14 +3,18 @@
 import { UserContext } from "@/context/AppContext";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 const Page = () => {
+  const router = useRouter();
   const userData = useContext(UserContext);
   const [user, setUser] = useState(null);
   useEffect(() => {
-    if (!userData) return;
     const token = localStorage.getItem("access_token");
+    if (!token) {
+      router.push("/login");
+    }
     axios
       .get(
         `https://auth-nest-kmoz.onrender.com/users/profile/${userData?.id}`,

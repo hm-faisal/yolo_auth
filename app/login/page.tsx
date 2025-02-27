@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import { Input } from "@/components/ui/input";
 import { Lock, User } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,9 +8,12 @@ import { Button } from "@/components/ui/button";
 import MotionAnimation from "@/components/MotionAnimation";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { UserContext } from "@/context/AppContext";
 
 const LoginPage = () => {
   const router = useRouter();
+  const { setToken } = useContext(UserContext);
   const handleFormData = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
@@ -22,6 +25,7 @@ const LoginPage = () => {
       .then((res) => {
         if (res?.data) {
           localStorage.setItem("access_token", res.data.access_token);
+          setToken(res.data.access_token);
           router.push("/");
         }
       })
@@ -67,9 +71,9 @@ const LoginPage = () => {
             </form>
             <p className="mt-4 text-center text-sm text-gray-600">
               Don&apos;t have an account?{" "}
-              <a href="#" className="text-indigo-500 hover:underline">
+              <Link href="/signup" className="text-indigo-500 hover:underline">
                 Sign up
-              </a>
+              </Link>
             </p>
           </CardContent>
         </Card>

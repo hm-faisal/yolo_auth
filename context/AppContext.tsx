@@ -24,15 +24,16 @@ interface AppProviderProps {
 // Create the provider component
 const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [user, setUser] = useState<AppContextType | null>(null);
-
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem("access_token")
+  );
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
     setUser(decodeJWT(token));
-  }, []);
+  }, [token]);
 
   // Load userId from localStorage on client-side
 
-  const value = { ...user };
+  const value = { ...user, setToken };
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 export default AppProvider;

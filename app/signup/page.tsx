@@ -16,6 +16,7 @@ import {
 import MotionAnimation from "../../components/MotionAnimation";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -127,9 +128,9 @@ const SignUpPage = () => {
             </form>
             <p className="mt-4 text-center text-sm text-gray-600">
               Already have an account?{" "}
-              <a href="#" className="text-indigo-500 hover:underline">
+              <Link href="/login" className="text-indigo-500 hover:underline">
                 Login
-              </a>
+              </Link>
             </p>
           </CardContent>
         </Card>

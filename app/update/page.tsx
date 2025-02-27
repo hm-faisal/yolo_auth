@@ -24,8 +24,11 @@ const UpdateProfilePage = () => {
   const [token, setToken] = useState(null);
 
   useEffect(() => {
-    if (!userData) return;
     setToken(localStorage.getItem("access_token"));
+    if (!token) {
+      router.push("/login");
+      return;
+    }
     axios
       .get(`http://localhost:3000/users/profile/${userData?.id}`, {
         headers: { authorization: `Bearer ${token}` },

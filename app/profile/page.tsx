@@ -6,10 +6,20 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
+type UserType = {
+  id?: string; // Allow undefined
+  username?: string;
+  name?: string;
+  birthdate?: string;
+  gender?: string;
+  email?: string;
+  description?: string;
+};
+
 const Page = () => {
   const router = useRouter();
   const userData = useContext(UserContext);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<UserType | null>(null);
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     if (!token) {

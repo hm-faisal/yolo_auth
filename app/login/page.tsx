@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from "react";
+import React from "react";
 import { Input } from "@/components/ui/input";
 import { Lock, User } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,11 +9,11 @@ import MotionAnimation from "@/components/MotionAnimation";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { UserContext } from "@/context/AppContext";
+import { useUserContext } from "@/hooks/useUserContext";
 
 const LoginPage = () => {
   const router = useRouter();
-  const { setToken } = useContext(UserContext);
+  const { setToken } = useUserContext();
   const handleFormData = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 

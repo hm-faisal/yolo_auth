@@ -4,14 +4,16 @@ import { decodeJWT } from "@/utils/decodeJWT";
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 
 // Define the context type
-interface AppContextType {
-  id: string;
-  username: string;
-  name: string;
-  birthdate: string;
-  gender: string;
-  email: string;
-}
+type AppContextType = {
+  id?: string; // Allow undefined
+  username?: string;
+  name?: string;
+  birthdate?: string;
+  gender?: string;
+  email?: string;
+  token?: string;
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
+};
 
 // Create the context with a default value
 export const UserContext = createContext<AppContextType | null>(null);
@@ -24,7 +26,9 @@ interface AppProviderProps {
 // Create the provider component
 const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [user, setUser] = useState<AppContextType | null>(null);
-  const [token, setToken] = useState<any>(localStorage.getItem("access_token"));
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem("access_token")
+  );
   useEffect(() => {
     setUser(decodeJWT(token));
   }, [token]);

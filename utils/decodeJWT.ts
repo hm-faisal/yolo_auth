@@ -1,4 +1,4 @@
-const decodeJWT = (token) => {
+const decodeJWT = (token: string | null) => {
   if (!token) {
     return "";
   }

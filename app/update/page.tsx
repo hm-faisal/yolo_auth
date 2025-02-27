@@ -17,10 +17,20 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { UserContext } from "@/context/AppContext";
 
+type UserType = {
+  id?: string; // Allow undefined
+  username?: string;
+  name?: string;
+  birthdate?: string;
+  gender?: string;
+  email?: string;
+  description?: string;
+};
+
 const UpdateProfilePage = () => {
   const userData = useContext(UserContext);
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const [user, setUser] = useState<UserType | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
     setToken(localStorage.getItem("access_token"));

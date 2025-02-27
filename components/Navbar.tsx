@@ -6,9 +6,13 @@ import { decodeJWT } from "@/utils/decodeJWT";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 
+type UserType = {
+  name?: string;
+};
+
 const Navbar = () => {
   const router = useRouter();
-  const [decodedToken, setDecodedToken] = useState(null);
+  const [decodedToken, setDecodedToken] = useState<UserType | null>(null);
   const [token, setToken] = useState(localStorage.getItem("access_token"));
   useEffect(() => {
     setDecodedToken(decodeJWT(token));

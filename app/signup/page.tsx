@@ -39,7 +39,7 @@ const SignUpPage = () => {
       });
   };
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-500 p-4">
+    <div className="flex min-h-screen items-center justify-center p-4">
       <MotionAnimation>
         <Card className="max-w-3xl shadow-2xl rounded-2xl">
           <CardHeader>

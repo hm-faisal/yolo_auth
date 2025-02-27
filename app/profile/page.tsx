@@ -35,7 +35,7 @@ const Page = () => {
       .then((res) => setUser(res.data));
   }, [userData]);
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-purple-100 to-white p-6">
+    <div className="flex items-center justify-center min-h-[90vh] p-6">
       <div className="max-w-xl mx-auto p-6 bg-white shadow-lg rounded-2xl">
         <h2 className="text-2xl font-bold mb-4 text-center">User Profile</h2>
         {user ? (

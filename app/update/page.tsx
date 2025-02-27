@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,10 +15,10 @@ import {
 import MotionAnimation from "../../components/MotionAnimation";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { UserContext } from "@/context/AppContext";
+import { decodeJWT } from "@/utils/decodeJWT";
 
 type UserType = {
-  id?: string; // Allow undefined
+  id?: string;
   username?: string;
   name?: string;
   birthdate?: string;
@@ -28,23 +28,32 @@ type UserType = {
 };
 
 const UpdateProfilePage = () => {
-  const userData = useContext(UserContext);
+  const router = useRouter();
   const [user, setUser] = useState<UserType | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [userData, setUserData] = useState<UserType | null>(null);
 
   useEffect(() => {
     setToken(localStorage.getItem("access_token"));
-    if (!token) {
-      router.push("/login");
-      return;
-    }
+    if (!token) return;
+    const user = decodeJWT(token);
+    setUserData(user);
+  }, [token]);
+
+  useEffect(() => {
+    if (!userData) return;
+    if (!token) return;
+
     axios
-      .get(`http://localhost:3000/users/profile/${userData?.id}`, {
-        headers: { authorization: `Bearer ${token}` },
-      })
+      .get(
+        `https://auth-nest-kmoz.onrender.com/users/profile/${userData?.id}`,
+        {
+          headers: { authorization: `Bearer ${token}` },
+        }
+      )
       .then((res) => setUser(res.data));
   }, [userData]);
-  const router = useRouter();
+
   const handleFormData = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
@@ -65,12 +74,12 @@ const UpdateProfilePage = () => {
       });
   };
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-500 p-4">
+    <div className="flex min-h-screen items-center justify-center p-4">
       <MotionAnimation>
         <Card className="max-w-3xl shadow-2xl rounded-2xl">
           <CardHeader>
             <CardTitle className="text-center text-2xl font-bold text-gray-800">
-              Create an Account
+              Update Your Account
             </CardTitle>
           </CardHeader>
           <CardContent>

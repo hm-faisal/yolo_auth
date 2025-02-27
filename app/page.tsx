@@ -19,7 +19,7 @@ const routes = [
 
 export default function RoutesTable() {
   return (
-    <div className="flex min-h-[90vh] items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-500 p-4">
+    <div className="flex min-h-[90vh] items-center justify-center p-4">
       <Card className="p-6 shadow-xl max-w-6xl w-full mx-auto">
         <h2 className="text-xl font-bold mb-4">Available Routes</h2>
         <Table>

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Lock, User } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,9 +14,10 @@ import { useUserContext } from "@/hooks/useUserContext";
 const LoginPage = () => {
   const router = useRouter();
   const { setToken } = useUserContext();
+  const [loading, setLoading] = useState(false);
   const handleFormData = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-
+    setLoading(true);
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
@@ -26,16 +27,18 @@ const LoginPage = () => {
         if (res?.data) {
           localStorage.setItem("access_token", res.data.access_token);
           setToken(res.data.access_token);
+          setLoading(false);
           router.push("/");
         }
       })
       .catch((error) => {
         console.error("Login failed", error);
+        setLoading(false);
       });
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-500 p-4">
+    <div className="flex min-h-screen items-center justify-center p-4">
       <MotionAnimation>
         <Card className="w-96 shadow-2xl rounded-2xl">
           <CardHeader>
@@ -65,7 +68,7 @@ const LoginPage = () => {
                   />
                 </div>
                 <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold">
-                  Login
+                  {loading ? "Loading ..." : "Login"}
                 </Button>
               </div>
             </form>

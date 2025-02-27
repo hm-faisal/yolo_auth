@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { decodeJWT } from "@/utils/decodeJWT";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 
-const Navbar: React.FC<ReactElement> = () => {
+const Navbar = () => {
   const router = useRouter();
   const [decodedToken, setDecodedToken] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("access_token"));

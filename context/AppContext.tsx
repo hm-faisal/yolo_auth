@@ -26,10 +26,9 @@ interface AppProviderProps {
 // Create the provider component
 const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [user, setUser] = useState<AppContextType | null>(null);
-  const [token, setToken] = useState<string | null>(
-    localStorage.getItem("access_token")
-  );
+  const [token, setToken] = useState<string | null>(null);
   useEffect(() => {
+    setToken(localStorage.getItem("access_token"));
     setUser(decodeJWT(token));
   }, [token]);
 

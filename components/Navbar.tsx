@@ -13,8 +13,9 @@ type UserType = {
 const Navbar = () => {
   const router = useRouter();
   const [decodedToken, setDecodedToken] = useState<UserType | null>(null);
-  const [token, setToken] = useState(localStorage.getItem("access_token"));
+  const [token, setToken] = useState<string | null>(null);
   useEffect(() => {
+    setToken(localStorage.getItem("access_token"));
     setDecodedToken(decodeJWT(token));
   }, [token]);
 

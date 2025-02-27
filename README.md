@@ -26,13 +26,15 @@ YOLO Task is a full-stack authentication and profile management system built usi
 
 ### 1️⃣ Clone the Repository
 
-````sh
+```sh
 git clone https://github.com/hm-faisal/yolo_auth
 cd yolo_auth
-
+```
 
 ## Getting Started
+
 First, install Dependency
+
 ```bash
 npm i
 # or
@@ -41,7 +43,7 @@ yarn install
 pnpm install
 # or
 bun install
-````
+```
 
 Second, run the development server:
 
